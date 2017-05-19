@@ -51,6 +51,7 @@ $(document).ready(function(){
         renderButtons()
     })
 
+
     $("#gifs").on("click", ".gif-result", function(){
         var state = $(this).children("img").attr("state")
            if (state === "still") {
@@ -62,13 +63,13 @@ $(document).ready(function(){
            }
     })
 
+
     $(".button-animals").on("click",".animal",function(){
         renderButtons()
         var term  = encodeURIComponent($(this).text().trim())
-
+        var t0 = new Date()
         if (!localStorage.getItem(term)){
             var url = "http://api.giphy.com/v1/gifs/search?q="+term+"&api_key="+getAPIKEY()
-            console.log(url)
             $.ajax({
                 method: "GET",
                 url: url
@@ -76,14 +77,12 @@ $(document).ready(function(){
                 localStorage.setItem(term,JSON.stringify(response))
                 populateGif(response)
             })
+            var t1 = new Date()
+            console.log(' LS  Took', (t1 - t0).toFixed(4), 'milliseconds to generate:')
         }else{
-
             populateGif( JSON.parse(localStorage.getItem(term))  )
-            //console.log(localStorage.getItem("cat"))
-
+            var t1 = new Date()
+            console.log(' NLS Took', (t1 - t0).toFixed(4))
         }
-
     })
-
-
 });
