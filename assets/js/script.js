@@ -69,7 +69,7 @@ $(document).ready(function(){
         var term  = encodeURIComponent($(this).text().trim())
         var t0 = new Date()
         if (!localStorage.getItem(term)){
-            var url = "http://api.giphy.com/v1/gifs/search?q="+term+"&api_key="+getAPIKEY()
+            var url = "https://api.giphy.com/v1/gifs/search?q="+term+"&api_key="+getAPIKEY()
             $.ajax({
                 method: "GET",
                 url: url
